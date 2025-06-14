@@ -53,6 +53,7 @@ INSTALLED_APPS = [
 SITE_ID = 1
 LOGIN_REDIRECT_URL = '/dashboard/'
 LOGOUT_REDIRECT_URL = '/'
+ACCOUNT_SIGNUP_REDIRECT_URL = '/team/choose-team/'
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

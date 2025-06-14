@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+        <h2>Choose Your Team</h2>
+        <p>Please create the team you want to manage:</p>
+        <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Save and continue</button>
+        </form>
+    </div>
+{% endblock %}
