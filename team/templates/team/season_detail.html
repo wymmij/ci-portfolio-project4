@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Season: {{ season }}</h2>
+
+    <h4>Matches</h4>
+    {% if matches %}
+    <ul class="list-group mb-3">
+        {% for match in matches %}
+        <li class="list-group-item">
+            {{ match.date }} —
+            {% if match.is_home %}
+            vs {{ match.opponent }}
+            {% else %}
+            @ {{ match.opponent }}
+            {% endif %}
+            {% if match.team_score is not None %}
+            ({{ match.team_score }}–{{ match.opponent_score }})
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No matches yet.</p>
+    {% endif %}
+
+    <a href="{% url 'create_match' season.slug %}" class="btn btn-success">Add Match</a>
+</div>
+{% endblock %}
