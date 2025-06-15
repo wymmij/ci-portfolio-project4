@@ -10,10 +10,21 @@ class TeamSelectionForm(forms.ModelForm):
 class SeasonForm(forms.ModelForm):
     class Meta:
         model = Season
-        fields = ['start_date', 'end_date']
+        fields = ['start_date', 'end_date', 'competition_list']
+        labels = {'competition_list': 'Competitions (comma-separated)',}
+        widgets = {
+            'competition_list': forms.TextInput(attrs={'placeholder': 'e.g. Championship, FA Cup, League Cup'}),
+        }
 
 
 class MatchForm(forms.ModelForm):
+    competition = forms.ChoiceField(choices=[], required=False)
+
     class Meta:
         model = Match
-        fields = ['date', 'opponent', 'is_home', 'team_score', 'opponent_score', 'notes']
+        fields = ['date', 'time', 'opponent', 'is_home', 'competition', 'attendance', 'team_score', 'opponent_score']
+
+    def __init__(self, *args, season=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        if season:
+            self.fields['competition'].choices = [(c, c) for c in season.competitions]

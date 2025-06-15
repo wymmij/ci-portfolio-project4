@@ -60,7 +60,7 @@ def create_match_view(request, season_slug):
     season = get_object_or_404(Season, slug=season_slug, contributor=request.user)
 
     if request.method == 'POST':
-        form = MatchForm(request.POST)
+        form = MatchForm(request.POST or None, season=season)
         if form.is_valid():
             match = form.save(commit=False)
             match.season = season
@@ -68,7 +68,7 @@ def create_match_view(request, season_slug):
             messages.success(request, 'Match added successfully!')
             return redirect('dashboard')
     else:
-        form = MatchForm()
+        form = MatchForm(season=season)
 
     return render(request, 'team/match_form.html', {
         'form': form,
