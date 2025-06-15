@@ -25,9 +25,10 @@ class Season(models.Model):
     contributor = models.ForeignKey(User, on_delete=models.CASCADE)
     competition_list = models.CharField(
         max_length=255,
+        default='Championship',
         help_text="Comma-separated list of competitions the team has entered for this season."
     )
-    slug = models.SlugField(max_length=10, unique=True)
+    slug = models.SlugField(max_length=10, unique=True, blank=True)
 
     def __str__(self):
         start_year = self.start_date.year
@@ -64,6 +65,11 @@ class Match(models.Model):
     opponent = models.CharField(max_length=100)
     is_home = models.BooleanField(default=True)
     competition = models.CharField(max_length=100, blank=True)
+    round = models.CharField(
+        max_length=50,
+        blank=True,
+        help_text="e.g. 'Quarter-Final', 'Round 3', 'Group Stage', etc."
+    )
     attendance = models.PositiveIntegerField(null=True, blank=True)
     team_score = models.PositiveSmallIntegerField(null=True, blank=True)
     opponent_score = models.PositiveSmallIntegerField(null=True, blank=True)

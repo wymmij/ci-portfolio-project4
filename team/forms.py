@@ -22,7 +22,11 @@ class MatchForm(forms.ModelForm):
 
     class Meta:
         model = Match
-        fields = ['date', 'time', 'opponent', 'is_home', 'competition', 'attendance', 'team_score', 'opponent_score']
+        fields = [
+            'date', 'time', 'opponent', 'is_home', 
+            'competition', 'round', 'attendance', 
+            'team_score', 'opponent_score'
+        ]
 
     def __init__(self, *args, season=None, **kwargs):
         super().__init__(*args, **kwargs)
