@@ -1,4 +1,5 @@
 from django import forms
+from django.forms import DateInput
 from .models import Team, Season, Match
 
 class TeamSelectionForm(forms.ModelForm):
@@ -13,6 +14,8 @@ class SeasonForm(forms.ModelForm):
         fields = ['start_date', 'end_date', 'competition_list']
         labels = {'competition_list': 'Competitions (comma-separated)',}
         widgets = {
+            'start_date': DateInput(attrs={'type': 'date'}),
+            'end_date': DateInput(attrs={'type': 'date'}),
             'competition_list': forms.TextInput(attrs={'placeholder': 'e.g. Championship, FA Cup, League Cup'}),
         }
 

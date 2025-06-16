@@ -6,8 +6,8 @@ from django.utils.text import slugify
 class Team(models.Model):
     name = models.CharField(max_length=100, unique=True)
     short_name = models.CharField(max_length=20, blank=True)
-    city = models.CharField(max_length=100, blank=True)
-    country = models.CharField(max_length=50, blank=True)
+    city = models.CharField(max_length=100, blank=False)
+    country = models.CharField(max_length=50, blank=False)
     contributor = models.ForeignKey(User, on_delete=models.CASCADE, related_name="teams")
     is_public = models.BooleanField(default=True)
 
@@ -25,7 +25,7 @@ class Season(models.Model):
     contributor = models.ForeignKey(User, on_delete=models.CASCADE)
     competition_list = models.CharField(
         max_length=255,
-        default='Championship',
+        blank=True,
         help_text="Comma-separated list of competitions the team has entered for this season."
     )
     slug = models.SlugField(max_length=10, unique=True, blank=True)
