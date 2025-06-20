@@ -9,7 +9,7 @@
         {% for season in seasons %}
         <li class="list-group-item d-flex justify-content-between align-items-center">
             {{ season }}
-            <a href="{% url 'season_detail' season.slug %}" class="btn btn-sm btn-outline-primary">View</a>
+            <a href="{{ season.get_absolute_url }}" class="btn btn-sm btn-outline-primary">View</a>
         </li>
         {% endfor %}
     </ul>

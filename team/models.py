@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.text import slugify
+from django.urls import reverse
 
 # Create your models here.
 class Team(models.Model):
@@ -64,6 +65,9 @@ class Season(models.Model):
                 label = f"{start_year % 100}-{end_year % 100}"
             self.slug = slugify(label)
         super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse('season_detail', args=[self.team.slug, self.slug])
 
     class Meta:
         constraints = [
