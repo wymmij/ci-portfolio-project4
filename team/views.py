@@ -25,10 +25,8 @@ def choose_team_view(request):
 
 
 @login_required
-def create_season_view(request):
-    team = Team.objects.filter(contributor=request.user).first()
-    if not team:
-        return redirect('choose_team')  # Safety net
+def create_season_view(request, team_slug):
+    team = get_object_or_404(Team, slug=team_slug, contributor=request.user)
 
     if request.method == 'POST':
         form = SeasonForm(request.POST)
@@ -42,12 +40,12 @@ def create_season_view(request):
     else:
         form = SeasonForm()
 
-    return render(request, 'team/season_form.html', {'form': form})
+    return render(request, 'team/season_form.html', {'form': form, 'team': team})
 
 
 @login_required
-def season_detail_view(request, season_slug):
-    season = get_object_or_404(Season, slug=season_slug, contributor=request.user)
+def season_detail_view(request, team_slug, season_slug):
+    season = get_object_or_404(Season, slug=season_slug, team__slug=team_slug, contributor=request.user)
     matches = season.match_set.order_by('date')
     return render(request, 'team/season_detail.html', {
         'season': season,
@@ -56,8 +54,9 @@ def season_detail_view(request, season_slug):
 
 
 @login_required
-def create_match_view(request, season_slug):
-    season = get_object_or_404(Season, slug=season_slug, contributor=request.user)
+def create_match_view(request, team_slug, season_slug):
+    team = get_object_or_404(Team, slug=team_slug, contributor=request.user)
+    season = get_object_or_404(Season, slug=season_slug, team=team, contributor=request.user)
 
     if request.method == 'POST':
         form = MatchForm(request.POST or None, season=season)

@@ -25,6 +25,7 @@
     <p>No matches yet.</p>
     {% endif %}
 
-    <a href="{% url 'create_match' season.slug %}" class="btn btn-success">Add Match</a>
+    <a href="{{ season.get_create_match_url }}" class="btn btn-success">Add Match</a>
+
 </div>
 {% endblock %}

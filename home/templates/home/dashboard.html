@@ -16,6 +16,6 @@
     {% else %}
     <p>You haven't created any seasons yet.</p>
     {% endif %}
-    <a href="{% url 'create_season' %}" class="btn btn-primary">Create New Season</a>
+    <a href="{{ team.get_create_season_url }}" class="btn btn-primary">Create New Season</a>
 </div>
 {% endblock %}

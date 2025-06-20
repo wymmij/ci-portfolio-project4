@@ -24,6 +24,9 @@ class Team(models.Model):
             self.slug = slugify(self.name)
         super().save(*args, **kwargs)
 
+    def get_create_season_url(self):
+        return reverse('create_season', args=[self.slug])
+
     class Meta:
         constraints = [
             models.UniqueConstraint(fields=['contributor', 'slug'], name='unique_contributor_team_slug')
@@ -68,6 +71,9 @@ class Season(models.Model):
 
     def get_absolute_url(self):
         return reverse('season_detail', args=[self.team.slug, self.slug])
+    
+    def get_create_match_url(self):
+        return reverse('create_match', args=[self.team.slug, self.slug])
 
     class Meta:
         constraints = [
