@@ -9,12 +9,10 @@
     <div class="row">
         <div class="col-md-8 mt-3 offset-md-2">
             <h3>{% trans "Sign Up" %}</h3>
-            <p>
-                {% blocktrans %}
-                Welcome to SeasonWatch.
-                If you already have an account, then please <a class="link" href="{{ login_url }}">sign in</a> instead.
-                {% endblocktrans %}
-            </p>
+            {% blocktrans %}
+            <p>Welcome to SeasonWatch.</p>
+            <p>If you already have an account, then please <a class="link" href="{{ login_url }}">sign in</a> instead.</p>
+            {% endblocktrans %}
         </div>
     </div>
     <div class="row">

@@ -4,6 +4,7 @@
     <h1>Welcome to SeasonWatch</h1>
     {% if user.is_authenticated %}
     <p>You're logged in as <strong>{{ user.username }}</strong>.</p>
+    <p><a class="btn btn-primary" href="{% url 'dashboard' %}">Dashboard</a></p>
     {% else %}
     <p>Please <a class="link" href="{{ login_url }}">log in</a> or <a class="link" href="{{ signup_url }}">sign up</a>.</p>
     {% endif %}
