@@ -10,12 +10,23 @@ class Team(models.Model):
     country = models.CharField(max_length=50, blank=False)
     contributor = models.ForeignKey(User, on_delete=models.CASCADE, related_name="teams")
     is_public = models.BooleanField(default=True)
+    slug = models.SlugField(max_length=100, blank=True)
 
     def __str__(self):
         return self.name
     
     def get_display_name(self):
         return self.short_name or self.name
+    
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['contributor', 'slug'], name='unique_contributor_team_slug')
+        ]
 
 
 class Season(models.Model):
@@ -28,7 +39,7 @@ class Season(models.Model):
         blank=True,
         help_text="Comma-separated list of competitions the team has entered for this season."
     )
-    slug = models.SlugField(max_length=10, unique=True, blank=True)
+    slug = models.SlugField(max_length=10, blank=True)
 
     def __str__(self):
         start_year = self.start_date.year
@@ -55,7 +66,10 @@ class Season(models.Model):
         super().save(*args, **kwargs)
 
     class Meta:
-        unique_together = ('team', 'start_date', 'end_date')
+        constraints = [
+            models.UniqueConstraint(fields=['team', 'start_date', 'end_date'], name='unique_team_season_dates'),
+            models.UniqueConstraint(fields=['team', 'slug'], name='unique_team_season_slug'),
+        ]
 
 
 class Match(models.Model):
