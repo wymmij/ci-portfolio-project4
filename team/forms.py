@@ -1,5 +1,5 @@
 from django import forms
-from django.forms import DateInput
+from django.forms import DateInput, TimeInput
 from .models import Team, Season, Match
 
 class TeamSelectionForm(forms.ModelForm):
@@ -30,6 +30,12 @@ class MatchForm(forms.ModelForm):
             'competition', 'round', 'attendance', 
             'team_score', 'opponent_score'
         ]
+        widgets = {
+            'date': DateInput(attrs={'type': 'date'}),
+            'time': TimeInput(attrs={'type': 'time'}),
+            'opponent': forms.TextInput(attrs={'placeholder': 'e.g. Leeds United'}),
+            'round': forms.TextInput(attrs={'placeholder': 'e.g. Matchday 1, Quarter Final'}),
+        }
 
     def __init__(self, *args, season=None, **kwargs):
         super().__init__(*args, **kwargs)

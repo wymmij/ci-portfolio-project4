@@ -89,11 +89,7 @@ class Match(models.Model):
     opponent = models.CharField(max_length=100)
     is_home = models.BooleanField(default=True)
     competition = models.CharField(max_length=100, blank=True)
-    round = models.CharField(
-        max_length=50,
-        blank=True,
-        help_text="e.g. 'Quarter-Final', 'Round 3', 'Group Stage', etc."
-    )
+    round = models.CharField(max_length=50, blank=True)
     attendance = models.PositiveIntegerField(null=True, blank=True)
     team_score = models.PositiveSmallIntegerField(null=True, blank=True)
     opponent_score = models.PositiveSmallIntegerField(null=True, blank=True)
