@@ -60,7 +60,7 @@ def create_match_view(request, team_slug, season_slug):
     season = get_object_or_404(Season, slug=season_slug, team=team, contributor=request.user)
 
     if request.method == 'POST':
-        form = MatchForm(request.POST or None, season=season)
+        form = MatchForm(request.POST, season=season)
         if form.is_valid():
             match = form.save(commit=False)
             match.season = season

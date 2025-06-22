@@ -1,8 +1,8 @@
 from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth.models import User
+from datetime import date, time
 from team.models import Team, Season, Match
-from datetime import date
 
 
 class TestChooseTeamView(TestCase):
@@ -152,3 +152,60 @@ class TestSeasonDetailView(TestCase):
         response = self.client.get(self.url)
         content = response.content.decode()
         self.assertTrue(content.index('Millwall') < content.index('Sunderland'))
+
+
+class TestCreateMatchView(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(username='testuser', password='testpass')
+        self.client.login(username='testuser', password='testpass')
+        self.team = self.user.teams.create(
+            name='Charlton Athletic',
+            short_name='Charlton',
+            city='London',
+            country='England'
+        )
+        self.season = Season.objects.create(
+            team=self.team,
+            contributor=self.user,
+            start_date=date(2024, 8, 1),
+            end_date=date(2025, 5, 20),
+            competition_list='Championship, FA Cup'
+        )
+        self.url = reverse('create_match', args=[self.team.slug, self.season.slug])
+    
+    def test_get_match_form(self):
+        """Logged-in user sees the match creation form for their season."""
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, '<form')
+        self.assertIn('form', response.context)
+        self.assertEqual(response.context['season'], self.season)
+
+    def test_post_valid_match_data_creates_match(self):
+        """Posting valid match data creates a Match and redirects to dashboard."""
+        data = {
+            'date': date(2024, 9, 1),
+            'time': time(15, 0), 
+            'opponent': 'Leeds United',
+            'is_home': True,
+            'competition': 'Championship',
+            'round': 'Matchday 1'
+        }
+        response = self.client.post(self.url, data)
+        self.assertEqual(Match.objects.count(), 1)
+        match = Match.objects.first()
+        self.assertEqual(match.opponent, 'Leeds United')
+        self.assertRedirects(response, reverse('dashboard'))
+
+    def test_form_rejects_missing_required_fields(self):
+        """Missing required match fields results in form error."""
+        response = self.client.post(self.url, {})
+        self.assertEqual(response.status_code, 200)
+        self.assertFormError(response, 'form', 'date', 'This field is required.')
+        self.assertFormError(response, 'form', 'opponent', 'This field is required.')
+
+    def test_login_required_for_match_creation(self):
+        """Anonymous users are redirected to login page."""
+        self.client.logout()
+        response = self.client.get(self.url)
+        self.assertRedirects(response, f'/accounts/login/?next={self.url}')
