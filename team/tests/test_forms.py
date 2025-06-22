@@ -30,8 +30,8 @@ class TestSeasonForm(TestCase):
     def test_valid_form(self):
         """Season form accepts valid date range and competition list."""
         form = SeasonForm(data={
-            'start_date': '2024-08-01',
-            'end_date': '2025-05-20',
+            'start_date': date(2024, 8, 1),
+            'end_date': date(2025, 5, 20),
             'competition_list': 'Championship, FA Cup'
         })
         self.assertTrue(form.is_valid())
@@ -39,8 +39,8 @@ class TestSeasonForm(TestCase):
     def test_blank_competitions_is_allowed(self):
         """Form is valid when competition_list is left empty."""
         form = SeasonForm(data={
-            'start_date': '2024-08-01',
-            'end_date': '2025-05-20',
+            'start_date': date(2024, 8, 1),
+            'end_date': date(2025, 5, 20),
             'competition_list': ''
         })
         self.assertTrue(form.is_valid())
@@ -63,7 +63,7 @@ class TestMatchForm(TestCase):
         """Match form is valid when required fields and season context are provided."""
         form = MatchForm(
             data={
-                'date': '2024-09-01',
+                'date': date(2024, 9, 1),
                 'opponent': 'Leeds United',
                 'is_home': True,
                 'competition': 'Championship',

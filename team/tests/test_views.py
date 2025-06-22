@@ -59,8 +59,8 @@ class TestCreateSeasonView(TestCase):
     def test_post_valid_season_form_creates_season(self):
         """Posting valid data creates a new season and redirects."""
         data = {
-            'start_date': '2024-08-01',
-            'end_date': '2025-05-10',
+            'start_date': date(2024, 8, 1),
+            'end_date': date(2025, 5, 10),
             'competition_list': 'Championship, FA Cup'
         }
         response = self.client.post(self.url, data)
