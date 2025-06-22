@@ -36,7 +36,8 @@ def create_season_view(request, team_slug):
             season.team = team
             season.save()
             messages.success(request, 'Season created successfully!')
-            return redirect('dashboard')
+            return redirect('season_detail', team_slug=team.slug, season_slug=season.slug)
+            # return redirect('dashboard')
     else:
         form = SeasonForm()
 
