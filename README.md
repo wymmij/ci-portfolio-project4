@@ -1,88 +1,171 @@
-# SeasonWatch
+# ⚽ SeasonWatch
 
-SeasonWatch is a web application for football fans who want to build a structured, personal record of their favourite club’s historical performance. The system supports logging of seasons, matches, players, and detailed appearances, all from a clean and user-friendly interface.
+A football season tracking app for fans who love data.
 
-This version of SeasonWatch is seeded with data from Sheffield Wednesday FC, but supports any club a user wishes to document.
+SeasonWatch allows users to record and explore season-by-season data for their favourite football team. It is designed for individual contributors to build their own record of matches, goals, players, and lineups, with the possibility of making that data publicly viewable. The project was developed using the Django web framework and is deployed to Heroku with a PostgreSQL backend.
 
 ---
 
-## 🎯 Project Goals
+## 📖 Table of Contents
 
-- Demonstrate practical application of Django within a Full-Stack project
-- Solve a real user problem: structured long-term tracking of football club history
-- Showcase agile development principles, front-end CRUD, custom models, and robust testing
-- Deliver a user-friendly, accessible, and well-documented interface
+- [⚽ SeasonWatch](#-seasonwatch)
+  - [📖 Table of Contents](#-table-of-contents)
+  - [🧭 UX Strategy](#-ux-strategy)
+  - [👥 User Stories](#-user-stories)
+  - [✨ Features](#-features)
+    - [Implemented in MVP](#implemented-in-mvp)
+    - [Planned for Future Iterations (Post-MVP)](#planned-for-future-iterations-post-mvp)
+  - [🗃️ Data Models](#️-data-models)
+    - [Team](#team)
+    - [Season](#season)
+    - [Match](#match)
+  - [🧪 Testing](#-testing)
+  - [📈 Agile Process](#-agile-process)
+  - [🛠️ Technologies Used](#️-technologies-used)
+  - [🚀 Deployment](#-deployment)
+  - [📝 Credits](#-credits)
+
+---
+
+## 🧭 UX Strategy
+
+This app is designed for football fans who want a personal and editable season log. Many fans keep informal spreadsheets of club stats; SeasonWatch offers a structured, scalable alternative.
+
+> "It’s not just about the data, but about the process of recording it."
+
+- Fans can track their favourite team's matches
+- Contributors can create and manage season data
+- Data can be optionally made public
+
+The UX prioritises:
+
+- Clean, readable layout
+- Familiar, form-based data entry
+- Logical URL patterns and routes per user/team/season
 
 ---
 
 ## 👥 User Stories
 
----
+User stories were created at the start of the project and tracked via GitHub Issues and a Kanban-style Project board. Each story was assigned a MoSCoW priority, with 8 forming the MVP.
 
-## 🗃️ Models
+Sample user stories:
 
-| Model        | Description                                                                 |
-|--------------|-----------------------------------------------------------------------------|
-| `Season`     | Represents one season of club history (year, manager, goals, league result) |
-| `Match`      | A specific game: opponent, score, competition, location                     |
-| `Player`     | Basic player info including position and career timeline                    |
-| `Appearance` | A many-to-many model linking players to specific matches, with match stats  |
-| `Manager`    | Manager name and dates (optional relational model)                          |
+- As a **Contributor**, I can create a season for my team so that I can track all matches played that year.
+- As a **Contributor**, I can record match results and scorers so that I can build a complete season overview.
+- As a **Fan**, I can view all matches in a season so that I can see how my team performed over time.
 
-All models are original and reflect domain-specific design.
+Each story includes acceptance criteria and developer-facing tasks.
 
 ---
 
-## 🛠️ Technologies Used
+## ✨ Features
 
-- Django
-- HTML / CSS
-- PostgreSQL
-- JavaScript (vanilla and jQuery)
-- GitHub Projects (Agile planning)
-- Django’s built-in testing framework
+### Implemented in MVP
+
+- Secure login/logout via Django AllAuth
+- Team selection with option to keep data public or private
+- Season creation (start/end dates, competition list)
+- Match creation with basic metadata (date, opponent, result, competition)
+- Season dashboard view listing all recorded seasons
+- Season detail view with list of matches played
+- Form validation and success messaging
+- Fully styled frontend using Bootstrap 5 and crispy-forms
+
+### Planned for Future Iterations (Post-MVP)
+
+- Lineups and goal scorer tracking
+- Player profiles and match appearances
+- Data import via CSV/TSV
+- Aggregate stats per season (e.g. win/loss record)
+- Public-facing URLs for shared data
+
+---
+
+## 🗃️ Data Models
+
+The following models form the core of the application:
+
+### Team
+
+- name (unique per contributor)
+- city, country
+- contributor (FK to User)
+- slug (auto-generated from name)
+
+### Season
+
+- team (FK)
+- start_date, end_date
+- competition_list (comma-separated)
+- contributor (FK)
+- slug (auto-generated from date range)
+
+### Match
+
+- season (FK)
+- date, time
+- opponent, is_home
+- competition, round
+- team_score, opponent_score
+- attendance (optional)
+
+Further models (e.g. Player, Goal, Lineup) are scaffolded but not implemented in the MVP.
 
 ---
 
 ## 🧪 Testing
 
-This project includes:
+Testing was conducted using Django's `TestCase`, structured around:
 
-- Unit tests for all custom models
-- View tests to check access control and expected behavior
-- Form validation tests
-- Manual testing notes and user flow validation
+- **Forms**: Valid/invalid inputs for Team, Season, and Match forms
+- **Views**: GET and POST requests for each core route
+- **Redirect logic** and login gating verified
+- Tests are grouped in `tests/` directory under each app
+- TDD was used where feasible
 
-Test coverage targets key CRUD operations and user workflows. Tests are written using Django’s `TestCase` framework and can be found in `tracker/tests/`.
+Tests directly align with MVP user story acceptance criteria.
+
+---
+
+## 📈 Agile Process
+
+The project followed Agile methodology:
+
+- GitHub Project board used to manage tasks
+- User stories defined and tracked via issues
+- MoSCoW priorities assigned (Must, Should, Could, Won't)
+- One milestone used for the MVP Sprint
+- Daily check-ins used to reassess scope and update tasks
+- README updated incrementally alongside code
+
+---
+
+## 🛠️ Technologies Used
+
+- Python 3.13
+- Django 4.2.20
+- PostgreSQL (Neon DB hosted via Code Institute)
+- Heroku for deployment
+- Bootstrap 5 + crispy-bootstrap5 for UI
+- Cloudinary (planned, not implemented in MVP)
+- Git & GitHub for version control and project planning
 
 ---
 
 ## 🚀 Deployment
 
-This project is deployed on Heroku. The live version is accessible at:
+Deployed to Heroku with settings managed via `env.py` and Heroku Config Vars.
 
-[👉 Deployed Link Here]
-
-The database is hosted via PostgreSQL, and all secret keys and credentials are stored securely in environment variables.
-
----
-
-## 📈 Agile Methodology
-
-This project was developed using Agile principles:
-
-- A GitHub Project board was used to track tasks and user stories
-- Issues were broken down into discrete, manageable chunks
-- Regular commits reflect story-based development
-- The board is [publicly visible here](https://github.com/wymmij/ci-portfolio-project4/projects/1)
-
----
-
-## 📁 Project Structure
+- Static files served via WhiteNoise
+- Local development uses SQLite; production uses PostgreSQL
+- Deployment checklist included in README
 
 ---
 
 ## 📝 Credits
 
-- Sheffield Wednesday FC historical data provided by the author
-- Course guidance and structure by Code Institute
+- Code Institute walkthroughs and Django module
+- Bootstrap documentation
+- GitHub Copilot and ChatGPT for rapid problem-solving
+- Project scaffolding inspired by Code Institute's blog project
