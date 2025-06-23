@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.text import slugify
+from django.utils.safestring import mark_safe
 from django.urls import reverse
 
 # Create your models here.
@@ -104,4 +105,29 @@ class Match(models.Model):
     def __str__(self):
         location = "vs" if self.is_home else "@"
         return f"{self.season.team.short_name or self.season.team.name} {location} {self.opponent} ({self.date})"
+    
+    @property
+    def outcome(self):
+        if self.team_score is None or self.opponent_score is None:
+            return ''
+        if self.team_score > self.opponent_score:
+            return 'W'
+        elif self.team_score == self.opponent_score:
+            return 'D'
+        else:
+            return 'L'
+
+    def get_short_date(self):
+        return self.date.strftime("%d-%m-%y")
+    
+    def get_scoreline(self):
+        if self.team_score is None or self.opponent_score is None:
+            return ''
+        return f"{self.team_score}–{self.opponent_score}"
+
+    def get_home_team(self):
+        return mark_safe(f"<strong>{self.season.team.name}</strong>") if self.is_home else self.opponent
+
+    def get_away_team(self):
+        return mark_safe(self.opponent) if self.is_home else mark_safe(f"<strong>{self.season.team.name}</strong>")
 

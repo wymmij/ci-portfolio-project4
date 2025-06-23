@@ -1,31 +1,45 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 
 {% block content %}
-<div class="container">
-    <h2>Season: {{ season }}</h2>
+<div class="container mt-4">
+    <h2>{{ season.team.name }} – Season {{ season.slug }}</h2>
 
-    <h4>Matches</h4>
+    <div class="mb-3">
+        <a href="{% url 'create_match' season.team.slug season.slug %}" class="btn btn-primary">
+            Add Match
+        </a>
+    </div>
+
     {% if matches %}
-    <ul class="list-group mb-3">
-        {% for match in matches %}
-        <li class="list-group-item">
-            {{ match.date }} —
-            {% if match.is_home %}
-            vs {{ match.opponent }}
-            {% else %}
-            @ {{ match.opponent }}
-            {% endif %}
-            {% if match.team_score is not None %}
-            ({{ match.team_score }}–{{ match.opponent_score }})
-            {% endif %}
-        </li>
-        {% endfor %}
-    </ul>
+    <table class="table table-bordered table-striped">
+        <thead class="thead-light">
+            <tr>
+                <th>Result</th>
+                <th>Competition</th>
+                <th>Date</th>
+                <th>Home</th>
+                <th>Score</th>
+                <th>Away</th>
+                <th>Goals</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for match in matches %}
+            <tr>
+                <td>{{ match.outcome }}</td>
+                <td>{{ match.competition }}</td>
+                <td>{{ match.get_short_date }}</td>
+                <td>{{ match.get_home_team }}</td>
+                <td>{{ match.get_scoreline }}</td>
+                <td>{{ match.get_away_team }}</td>
+                <td>{{ match.goals }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
     {% else %}
-    <p>No matches yet.</p>
+    <p>No matches recorded for this season yet.</p>
     {% endif %}
-
-    <a href="{{ season.get_create_match_url }}" class="btn btn-success">Add Match</a>
-
 </div>
 {% endblock %}
