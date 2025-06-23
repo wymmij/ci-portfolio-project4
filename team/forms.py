@@ -2,6 +2,7 @@ from django import forms
 from django.forms import DateInput, TimeInput
 from .models import Team, Season, Match
 
+
 class TeamSelectionForm(forms.ModelForm):
     class Meta:
         model = Team
@@ -28,13 +29,17 @@ class MatchForm(forms.ModelForm):
         fields = [
             'date', 'time', 'opponent', 'is_home', 
             'competition', 'round', 'attendance', 
-            'team_score', 'opponent_score'
+            'team_score', 'opponent_score', 'goals'
         ]
         widgets = {
             'date': DateInput(attrs={'type': 'date'}),
             'time': TimeInput(attrs={'type': 'time'}),
             'opponent': forms.TextInput(attrs={'placeholder': 'e.g. Leeds United'}),
             'round': forms.TextInput(attrs={'placeholder': 'e.g. Matchday 1, Quarter Final'}),
+            'goals': forms.Textarea(attrs={
+                'rows': 3,
+                'placeholder': "e.g. Smith 45+2, 76, Windass 83, Bannan 90+1"
+            }),
         }
 
     def __init__(self, *args, season=None, **kwargs):

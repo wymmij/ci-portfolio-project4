@@ -66,7 +66,7 @@ def create_match_view(request, team_slug, season_slug):
             match.season = season
             match.save()
             messages.success(request, 'Match added successfully!')
-            return redirect('dashboard')
+            return redirect('season_detail', team_slug=team.slug, season_slug=season.slug)
     else:
         form = MatchForm(season=season)
 

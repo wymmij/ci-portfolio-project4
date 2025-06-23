@@ -93,6 +93,13 @@ class Match(models.Model):
     attendance = models.PositiveIntegerField(null=True, blank=True)
     team_score = models.PositiveSmallIntegerField(null=True, blank=True)
     opponent_score = models.PositiveSmallIntegerField(null=True, blank=True)
+    goals = models.TextField(
+        blank=True,
+        help_text=(
+            "Enter goals in format: 'Smith 45+2, 76, Windass 83, Bannan 90+1'. "
+            "List scorer names followed by goal minutes. Separate players with commas."
+        )
+    )
 
     def __str__(self):
         location = "vs" if self.is_home else "@"
