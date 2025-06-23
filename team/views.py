@@ -74,3 +74,42 @@ def create_match_view(request, team_slug, season_slug):
         'form': form,
         'season': season,
     })
+
+
+@login_required
+def edit_match_view(request, team_slug, season_slug, match_id):
+    team = get_object_or_404(Team, slug=team_slug, contributor=request.user)
+    season = get_object_or_404(Season, slug=season_slug, team=team)
+    match = get_object_or_404(Match, id=match_id, season=season)
+
+    if request.method == 'POST':
+        form = MatchForm(request.POST, instance=match, season=season)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Match updated successfully.')
+            return redirect('season_detail', team_slug=team.slug, season_slug=season.slug)
+    else:
+        form = MatchForm(instance=match, season=season)
+
+    return render(request, 'team/match_form.html', {
+        'form': form,
+        'season': season,
+        'match': match,
+    })
+
+
+@login_required
+def delete_match_view(request, team_slug, season_slug, match_id):
+    team = get_object_or_404(Team, slug=team_slug, contributor=request.user)
+    season = get_object_or_404(Season, slug=season_slug, team=team)
+    match = get_object_or_404(Match, id=match_id, season=season)
+
+    if request.method == 'POST':
+        match.delete()
+        messages.success(request, 'Match deleted successfully.')
+        return redirect('season_detail', team_slug=team.slug, season_slug=season.slug)
+
+    return render(request, 'team/match_confirm_delete.html', {
+        'match': match,
+        'season': season,
+    })

@@ -16,6 +16,8 @@
                 <th>Score</th>
                 <th>Away</th>
                 <th>Goals</th>
+                <th>Edit</th>
+                <th>Delete</th>
             </tr>
         </thead>
         <tbody>
@@ -28,6 +30,8 @@
                 <td>{{ match.get_scoreline }}</td>
                 <td>{{ match.get_away_team }}</td>
                 <td>{{ match.goals }}</td>
+                <td><a href="{% url 'edit_match' season.team.slug season.slug match.id %}" class="btn btn-sm btn-outline-secondary">Edit</a></td>
+                <td><a href="{% url 'delete_match' season.team.slug season.slug match.id %}" class="btn btn-sm btn-outline-danger">Delete</a></td>
             </tr>
             {% endfor %}
         </tbody>
