@@ -123,7 +123,7 @@ class Match(models.Model):
     def get_scoreline(self):
         if self.team_score is None or self.opponent_score is None:
             return ''
-        return f"{self.team_score}–{self.opponent_score}"
+        return f"{self.team_score}–{self.opponent_score}" if self.is_home else f"{self.opponent_score}–{self.team_score}"
 
     def get_home_team(self):
         return mark_safe(f"<strong>{self.season.team.name}</strong>") if self.is_home else self.opponent
