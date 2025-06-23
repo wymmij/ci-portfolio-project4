@@ -4,9 +4,10 @@
 <div class="container">
     <h2>Create a New Season</h2>
     <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
+        {% csrf_token %}
+        {{ form.as_p }}
         <button type="submit" class="btn btn-success">Save Season</button>
+        <a href="{% url 'dashboard' %}" class="btn btn-secondary">Discard</a>
     </form>
 </div>
 {% endblock %}
