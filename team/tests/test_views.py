@@ -195,7 +195,10 @@ class TestCreateMatchView(TestCase):
         self.assertEqual(Match.objects.count(), 1)
         match = Match.objects.first()
         self.assertEqual(match.opponent, 'Leeds United')
-        self.assertRedirects(response, reverse('dashboard'))
+        self.assertRedirects(
+            response,
+            reverse('season_detail', args=[self.team.slug, self.season.slug])
+        )
 
     def test_form_rejects_missing_required_fields(self):
         """Missing required match fields results in form error."""
@@ -209,3 +212,92 @@ class TestCreateMatchView(TestCase):
         self.client.logout()
         response = self.client.get(self.url)
         self.assertRedirects(response, f'/accounts/login/?next={self.url}')
+
+
+class TestEditMatchView(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(username='testuser', password='testpass')
+        self.client.login(username='testuser', password='testpass')
+        self.team = self.user.teams.create(
+            name='Charlton Athletic', short_name='CAFC', city='London', country='England'
+        )
+        self.season = Season.objects.create(
+            team=self.team,
+            contributor=self.user,
+            start_date=date(2024, 8, 1),
+            end_date=date(2025, 5, 10),
+            competition_list='Championship'
+        )
+        self.match = Match.objects.create(
+            season=self.season,
+            date=date(2024, 9, 1),
+            opponent='Sunderland',
+            is_home=True
+        )
+        self.url = reverse('edit_match', args=[self.team.slug, self.season.slug, self.match.id])
+
+    def test_get_edit_form_populates_fields(self):
+        """Form pre-fills with existing match data for editing."""
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Sunderland')
+        self.assertIn('form', response.context)
+
+    def test_post_valid_edit_updates_match(self):
+        """Valid form submission updates the match and redirects."""
+        response = self.client.post(self.url, {
+            'date': '2024-09-01',
+            'opponent': 'Newcastle',
+            'is_home': True,
+            'competition': 'Championship',
+            'round': '',
+        })
+        self.match.refresh_from_db()
+        self.assertEqual(self.match.opponent, 'Newcastle')
+        self.assertRedirects(response, reverse('season_detail', args=[self.team.slug, self.season.slug]))
+
+    def test_post_invalid_edit_shows_errors(self):
+        """Invalid submission shows form validation errors."""
+        response = self.client.post(self.url, {
+            'date': '',
+            'opponent': '',
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertFormError(response, 'form', 'date', 'This field is required.')
+        self.assertFormError(response, 'form', 'opponent', 'This field is required.')
+
+
+class TestDeleteMatchView(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(username='testuser', password='testpass')
+        self.client.login(username='testuser', password='testpass')
+        self.team = self.user.teams.create(
+            name='Charlton Athletic', short_name='CAFC', city='London', country='England'
+        )
+        self.season = Season.objects.create(
+            team=self.team,
+            contributor=self.user,
+            start_date=date(2024, 8, 1),
+            end_date=date(2025, 5, 10),
+            competition_list='Championship'
+        )
+        self.match = Match.objects.create(
+            season=self.season,
+            date=date(2024, 9, 1),
+            opponent='Sunderland',
+            is_home=True
+        )
+        self.url = reverse('delete_match', args=[self.team.slug, self.season.slug, self.match.id])
+
+    def test_get_delete_confirmation_page(self):
+        """GET request shows the match delete confirmation page."""
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'team/match_confirm_delete.html')
+        self.assertContains(response, 'Sunderland')
+
+    def test_post_deletes_match_and_redirects(self):
+        """POST request deletes the match and redirects to season detail."""
+        response = self.client.post(self.url)
+        self.assertFalse(Match.objects.filter(id=self.match.id).exists())
+        self.assertRedirects(response, reverse('season_detail', args=[self.team.slug, self.season.slug]))
