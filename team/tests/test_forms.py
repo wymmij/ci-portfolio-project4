@@ -91,3 +91,47 @@ class TestMatchForm(TestCase):
         self.assertFalse(form.is_valid())
         self.assertIn('date', form.errors)
         self.assertIn('opponent', form.errors)
+
+    def test_goals_field_accepts_valid_text(self):
+        """Form is valid when a well-formatted goals string is provided."""
+        form = MatchForm(
+            data={
+                'date': date(2024, 9, 1),
+                'opponent': 'Leeds United',
+                'is_home': True,
+                'competition': 'Championship',
+                'round': 'Matchday 1',
+                'team_score': 3,
+                'opponent_score': 1,
+                'goals': 'Smith 45+2, Windass 78, Bannan 90+1',
+            },
+            season=self.season
+        )
+        self.assertTrue(form.is_valid())
+
+    def test_invalid_date_format_rejected(self):
+        """Form is invalid when date format is incorrect."""
+        form = MatchForm(
+            data={
+                'date': 'invalid-date',
+                'opponent': 'Leeds United',
+                'is_home': True,
+            },
+            season=self.season
+        )
+        self.assertFalse(form.is_valid())
+        self.assertIn('date', form.errors)
+
+    def test_attendance_must_be_positive_integer(self):
+        """Form is invalid when attendance is non-numeric."""
+        form = MatchForm(
+            data={
+                'date': date(2024, 9, 1),
+                'opponent': 'Leeds United',
+                'is_home': True,
+                'attendance': 'thirty thousand',
+            },
+            season=self.season
+        )
+        self.assertFalse(form.is_valid())
+        self.assertIn('attendance', form.errors)
