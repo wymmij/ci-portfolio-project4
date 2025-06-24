@@ -46,3 +46,7 @@ class MatchForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         if season:
             self.fields['competition'].choices = [(c, c) for c in season.competitions]
+
+
+class MatchImportForm(forms.Form):
+    tsv_file = forms.FileField(label="Select TSV File")

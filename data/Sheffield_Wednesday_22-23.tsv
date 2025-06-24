@@ -1,0 +1,61 @@
+date	time	competition	round	opponent	is_home	team_score	opponent_score	goals		attendance
+2022-07-30	15:00	League One		Portsmouh	H	3	3	Johnson 8, Dele-Bashiru 52, 81	26901
+2022-08-06	15:00	League One		MK Dons	A	1	0	Windass 22 (pen)	13241
+2022-08-10	19:45	League Cup	1st Round	Sunderland	H	2	0	Adeniran 16, Sow 56	8412
+2022-08-13	15:00	League One		Charlton Athletic	H	1	0	Bakinson 81	22363
+2022-08-16	19:45	League One		Peterborough United	A	0	2		11169
+2022-08-20	15:00	League One		Bolton Wanderers	A	2	0	Byers 36, Palmer 38	22023
+2022-08-23	19:30	League Cup	2nd Round	Rochdale	H	3	0	Brown 23, Dele-Bashiru 36, Adeniran 44	9045
+2022-08-27	15:00	League One		Forest Green Rovers	H	5	0	Windass 12, Bannan 19, Palmer 31, Gregory 45+1, Bernard 56 (og)	22300
+2022-08-30	19:30	League Trophy	Group Round	Bradford City	A	1	3	Smith 38 (pen)	6092
+2022-09-03	15:00	League One		Barnsley	H	0	2		27939
+2022-09-13	19:45	League One		Morecambe	A	3	0	Windass 70, Byers 78, Smith 83	5148
+2022-09-17	15:00	League One		Ipswich Town	H	2	2	Byers 75, Smith 89	26281
+2022-09-20	19:00	League Trophy	Group Round	Burton Albion	H	2	3	Wilks 32, Paterson 34	4577
+2022-09-24	15:00	League One		Wycombe Wanderers	H	3	1	Jacobson 1 (og), Bannan 32, Paterson 90+6	22123
+2022-10-01	15:00	League One		Port Vale	A	1	0	Vaulks 63	11336
+2022-10-04	19:45	League One		Plymouth Argyle	A	1	2	Palmer 7	16381
+2022-10-08	15:00	League One		Cheltenham Town	H	3	0	Windass 3, Bannan 83, Dele-Bashiru 85	22375
+2022-10-15	15:00	League One		Cambridge United	A	2	0	Gregory 6, 77	6481
+2022-10-18	19:00	League Trophy	Group Round	Leicester U21	H	2	0	Paterson 8, Trueman 52	3173
+2022-10-22	13:00	League One		Lincoln City	A	1	1	Gregory 7	10152
+2022-10-26	20:00	League One		Bristol Rovers	H	1	1	Smith 45+3	22006
+2022-10-29	15:00	League One		Burton Albion	H	4	2	Bannan 22, Smith 26 (pen), Wilks 53, Dele-Bashiru 75	23692
+2022-11-04	19:45	FA Cup	1st Round	Morecambe	H	2	0	Windass 29, Mighten 65	8558
+2022-11-09	19:45	League Cup	3rd Round	Southampton	A	1	1	Windass 24	20457
+2022-11-12	15:00	League One		Accrington Stanley	A	1	0	Mighten 24	4938
+2022-11-19	15:00	League One		Shrewsbury Town	H	1	0	McGuinness 39	24271
+2022-11-26	15:00	FA Cup	2nd Round	Mansfield Town	H	2	1	Smith 78, 83	13932
+2022-12-03	12:30	League One		Derby County	A	0	0		28192
+2022-12-10	15:00	League One		Exeter City	A	1	1	Paterson 90+4	7591
+2022-12-17	15:00	League One		Oxford United	H	0	0		22285
+2022-12-26	15:00	League One		Fleetwood Town	A	2	1	Byers 16, Johnson 73	4389
+2022-12-29	19:45	League One		Port Vale	H	2	0	Smith 30 (pen), 70	26021
+2023-01-02	15:00	League One		Cambridge United	H	5	0	Windass 7, 70, 80, Smith 21 (pen), 51	24221
+2023-01-07	18:00	FA Cup	3rd Round	Newcastle United	H	2	1	Windass 52, 66	25884
+2023-01-14	15:00	League One		Wycombe Wanderers	A	1	0	Vaulks 13	8302
+2023-01-21	15:00	League One		Fleetwood Town	H	1	0	Johnson 17	23230
+2023-01-28	15:00	FA Cup	4th Round	Fleetwood Town	H	1	1	Earl 71 (og)	15743
+2023-02-04	15:00	League One		Plymouth Argyle	H	1	0	Paterson 7	33442
+2023-02-07	19:45	FA Cup	4th Round Replay	Fleetwood Town	A	0	1		2936
+2023-02-11	15:00	League One		Ipswich Town	A	2	2	Smith 27, Byers 34	29072
+2023-02-14	19:45	League One		Morecambe	H	3	0	Bannan 1, Windass 22, 87	21330
+2023-02-18	15:00	League One		MK Dons	H	5	2	Windass 9, Smith 54 (pen), 74, Gregory 64, Byers 89	24318
+2023-02-25	15:00	League One		Charlton Athletic	A	1	0	Palmer 9	16729
+2023-03-04	15:00	League One		Peterborough United	H	1	0	Thompson 60 (og)	26984
+2023-03-11	15:00	League One		Portsmouth	A	1	0	Windass 11	18910
+2023-03-17	19:45	League One		Bolton Wanderers	H	1	1	Gregory 11	29230
+2023-03-21	20:00	League One		Barnsley	A	2	4	Gregory 33, 74	18377
+2023-03-26	13:00	League One		Forest Green Rovers	A	0	1		3837
+2023-03-29	19:45	League One		Cheltenham Town	A	2	2	Flint 76, Gregory 87	5433
+2023-04-01	15:00	League One		Lincoln City	H	1	1	Smith 12	27903
+2023-04-07	15:00	League One		Oxford United	A	1	1	Bannan 35	10238
+2023-04-10	15:00	League One		Accrington Stanley	H	3	0	Adeniran 11, 46, Palmer 72	25025
+2023-04-15	15:00	League One		Burton Albion	A	2	3	Paterson 28, Smith 85 (pen)	4682
+2023-04-18	19:45	League One		Bristol Rovers	A	2	1	Bannan 28, Famewo 41	8724
+2023-04-22	15:00	League One		Exeter City	H	2	1	Gregory 59, Paterson 74	26046
+2023-04-29	15:00	League One		Shrewsbury Town	A	3	0	Smith 8, 48, 81	8457
+2023-05-07	12:00	League One		Derby County	H	1	0	Smith 43 (pen)	33413
+2023-05-12	20:00	Play Off	Semi Final 1st Leg	Peterborough United	A	0	4		12569
+2023-05-18	20:00	Play Off	Semi Final 2nd Leg	Peterborough United	H	5	1	Smith 9 (pen), Gregory 25, James 71, Palmer 90+8, Paterson 112	31835
+2023-05-29	16:00	Play Off	Final	Barnsley	A	1	0	Windass 120+3	72492

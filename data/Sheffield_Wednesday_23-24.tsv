@@ -1,0 +1,52 @@
+date	time	competition	round	opponent	is_home	team_score	opponent_score	goals		attendance
+2023-08-04	20:00	Championship		Southampton	H	1	2	Gregory 54	28558
+2023-08-08	19:45	League Cup	1st Round	Stockport County	H	1	1	Bakinson 90+7	10886
+2023-08-12	15:00	Championship		Hull City	A	2	4	Delgado 36, Smith 90+3	20410
+2023-08-19	15:00	Championship		Preston North End	H	0	1		25138
+2023-08-26	15:00	Championship		Cardiff City	A	1	2	Bannan 76	21058
+2023-08-29	19:45	League Cup	2nd Round	Mansfield Town	H	1	1	Musaba 28	10724
+2023-09-02	15:00	Championship		Leeds United	A	0	0		36484
+2023-09-16	15:00	Championship		Ipswich Town	H	0	1		25938
+2023-09-19	20:00	Championship		Middlesbrough	H	1	1	Musaba 38	22975
+2023-09-23	15:00	Championship		Swansea City	A	0	3		16865
+2023-09-29	20:00	Championship		Sunderland	H	0	3		25987
+2023-10-03	20:00	Championship		West Bromwich Albion	A	0	1		22558
+2023-10-07	15:00	Championship		Huddersfield Town	H	0	0		26025
+2023-10-21	15:00	Championship		Watford	A	0	1		19102
+2023-10-25	19:45	Championship		Plymouth Argyle	A	0	3		16225
+2023-10-29	13:00	Championship		Rotherham United	H	2	0	Smith 11, 36	29038
+2023-11-04	15:00	Championship		Bristol City	A	0	1		22322
+2023-11-11	15:00	Championship		Millwall	H	0	4		25678
+2023-11-25	15:00	Championship		Birmingham City	A	1	2	Byers 45	20941
+2023-11-29	19:45	Championship		Leicester City	H	1	1	Hendrick 90+2	26036
+2023-12-02	15:00	Championship		Blackburn Rovers	H	3	1	Cadamarteri 5, Johnson 78, Windass 90+1	24507
+2023-12-09	15:00	Championship		Stoke City	A	1	0	Musaba 90+1	22347
+2023-12-13	19:45	Championship		Norwich City	A	1	3	Cadamarteri 32	25521
+2023-12-16	15:00	Championship		Queens Park Rangers	H	2	1	Cadamarteri 86, Musaba 90+4	24739
+2023-12-23	15:00	Championship		Cardiff City	H	1	2	Musaba 28	26009
+2023-12-26	15:00	Championship		Coventry City	A	0	2		29208
+2023-12-29	15:00	Championship		Preston North End	A	1	0	Johnson 27	19763
+2024-01-01	17:15	Championship		Hull City	H	3	1	Johnson 49, Gassama 55, Windass 72	27489
+2024-01-06	17:30	FA Cup	3rd Round	Cardiff City	H	4	0	Windass 2, Sawyers 38 (og), Palmer 40, Wilks 90	10955
+2024-01-13	15:00	Championship		Southampton	A	0	4		30189
+2024-01-20	15:00	Championship		Coventry City	H	1	2	Windass 68	28129
+2024-01-26	19:45	FA Cup	4th Round	Coventry City	H	1	1	Gassama 84	14215
+2024-01-31	19:45	Championship		Watford	H	0	0		22303
+2024-02-03	15:00	Championship		Huddersfield Town	A	0	4		21067
+2024-02-06	19:45	FA Cup	4th Round Replay	Coventry City	A	1	4	Cadamarteri 10	19359
+2024-02-09	20:00	Championship		Birmingham City	H	2	0	Ugbo 15, 53	25431
+2024-02-13	19:45	Championship		Leicester City	A	0	2		31550
+2024-02-17	15:00	Championship		Millwall	A	2	0	Ugbo 31, Musaba 41	17041
+2024-02-24	15:00	Championship		Bristol City	H	2	1	Ugbo 16, 45	26328
+2024-03-02	15:00	Championship		Rotherham United	A	1	0	Ugbo 66	11541
+2024-03-05	19:45	Championship		Plymouth Argyle	H	1	0	Gassama 60	23037
+2024-03-08	20:00	Championship		Leeds United	H	0	2		30032
+2024-03-16	15:00	Championship		Ipswich Town	A	0	6		29325
+2024-03-29	15:00	Championship		Swansea City	H	1	1	Cadamarteri 41	28301
+2024-04-01	15:00	Championship		Middlesbrough	A	0	2		27893
+2024-04-06	15:00	Championship		Queens Park Rangers	A	2	0	Gassama 59, Musaba 90+6	17502
+2024-04-09	19:45	Championship		Norwich City	H	2	2	Ihiekwe 78, Smith 85	28516
+2024-04-13	15:00	Championship		Stoke City	H	1	1	Palmer 68	32041
+2024-04-21	12:30	Championship		Blackburn Rovers	A	3	1	Windass 6, Johnson 58, Pears 64 (og)	21718
+2024-04-27	15:00	Championship		West Bromwich Albion	H	3	0	Musaba 22, Ugbo 50, Windass 69	33295
+2024-05-04	12:30	Championship		Sunderland	A	2	0	Palmer 29, Windass 38	41222

@@ -1,0 +1,52 @@
+date	time	competition	round	opponent	is_home	team_score	opponent_score	goals		attendance
+2024-08-11	16:00	Championship		Plymouth Argyle	H	4	0	J. Lowe 35, Galloway 52 (og), Windass 82, Smith 90+6	29535
+2024-08-14	19:45	League Cup	1st Round	Hull City	A	2	1	McNeill 1, 10	9281
+2024-08-18	12:00	Championship		Sunderland	A	0	4		40022
+2024-08-23	20:00	Championship		Leeds United	H	0	2		28800
+2024-08-27	19:45	League Cup	2nd Round	Grimsby Town	A	5	1	Ugbo 53, J. Lowe 54, Paterson 72, 81, Valentín 90+3	6364
+2024-08-31	15:00	Championship		Millwall	A	0	3		14905
+2024-09-14	15:00	Championship		Queens Park Rangers	H	1	1	Bannan 90+3	26283
+2024-09-17	19:45	League Cup	3rd Round	Blackpool	A	1	0	Bernard 34	5429
+2024-09-21	15:00	Championship		Luton Town	A	1	2	Bannan 52	11805
+2024-09-28	12:30	Championship		West Bromwich Albion	H	3	2	Furlong 9 (og), Windass 23, Musaba 86	26308
+2024-10-02	20:00	Championship		Bristol City	A	0	0		20293
+2024-10-05	15:00	Championship		Coventry City	A	2	1	Gassama 45+2, S. Charles 90+3	28571
+2024-10-19	15:00	Championship		Burnley	H	0	2		28105
+2024-10-22	19:45	Championship		Swansea City	H	0	0		22452
+2024-10-25	20:00	Championship		Portsmouth	A	2	1	Windass 55, Smith 70	20262
+2024-10-29	19:45	League Cup	4th Round	Brentford	A	1	1	Gassama 57	16701
+2024-11-02	15:00	Championship		Watford	H	2	6	Smith 34, Valentín 82	25693
+2024-11-05	19:45	Championship		Norwich City	H	2	0	Windass 12, Iorfa 34	22731
+2024-11-10	12:30	Championship		Sheffield United	A	0	1		31127
+2024-11-23	12:30	Championship		Cardiff City	H	1	1	Bernard 36	23974
+2024-11-26	19:45	Championship		Hull City	A	2	0	Windass 37 (pen), Smith 81	21297
+2024-12-01	15:00	Championship		Derby County	A	2	1	Bannan 64, J. Lowe 90+3	29212
+2024-12-07	12:30	Championship		Preston North End	H	1	1	Smith 76	23927
+2024-12-10	19:45	Championship		Blackburn Rovers	H	0	1		22703
+2024-12-14	15:00	Championship		Oxford United	A	3	1	Windass 28, J. Lowe 49, Gassama 61	11567
+2024-12-21	12:30	Championship		Stoke City	H	2	0	Windass 52, Paterson 76	26743
+2024-12-26	15:00	Championship		Middlesbrough	A	3	3	Ingelsson 47, Windass 54, Valery 61	32147
+2024-12-29	12:30	Championship		Preston North End	A	1	3	Windass 59	19950
+2025-01-01	15:00	Championship		Derby County	H	4	2	Bannan 8, Windass 61, Gassama 63, Musaba 74	31056
+2025-01-04	15:00	Championship		Millwall	H	2	2	Valery 6, Otegbayo 85	25208
+2025-01-11	18:00	FA Cup	3rd Round	Coventry City	A	1	1	Musaba 90+3	20906
+2025-01-19	12:00	Championship		Leeds United	A	0	3		36685
+2025-01-22	19:45	Championship		Bristol City	H	2	2	Gassama 16, Bernard 53	22774
+2025-01-25	15:00	Championship		Queens Park Rangers	A	2	0	Smith 72, Paterson 88	17352
+2025-02-01	15:00	Championship		Luton Town	H	1	1	Smith 60 (pen)	27437
+2025-02-08	12:30	Championship		West Bromwich Albion	A	1	2	Paterson 90+2	25452
+2025-02-11	19:45	Championship		Swansea City	A	1	0	Smith 66	14149
+2025-02-15	15:00	Championship		Coventry City	H	1	2	Latibeaudiere 62 (og)	28121
+2025-02-21	20:00	Championship		Burnley	A	0	4		20675
+2025-02-28	20:00	Championship		Sunderland	H	1	2	Paterson 48	27954
+2025-03-08	15:00	Championship		Plymouth Argyle	A	3	0	Ogbeta 15 (og), Paterson 41, Gassama 68	16981
+2025-03-11	19:45	Championship		Norwich City	A	3	2	Ihiekwe 64, Windass 72, Gassama 76	25498
+2025-03-16	12:30	Championship		Sheffield United	H	0	1		33827
+2025-03-29	15:00	Championship		Cardiff City	A	1	1	Ihiekwe 61	20460
+2025-04-05	15:00	Championship		Hull City	H	0	1		27342
+2025-04-08	19:45	Championship		Blackburn Rovers	A	2	2	Valery 16, Gassama 38	15575
+2025-04-12	15:00	Championship		Oxford United	H	0	1		25646
+2025-04-18	15:00	Championship		Stoke City	A	0	2		29163
+2025-04-21	15:00	Championship		Middlesbrough	H	2	1	Windass 54, Musaba 89	27688
+2025-04-26	15:00	Championship		Portsmouth	H	1	1	Paterson 9	28346
+2025-05-03	15:00	Championship		Watford	A	1	1	Windass 29	20657

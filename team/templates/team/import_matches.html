@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container">
+    <h2>Import Matches for {{ season }}</h2>
+
+    <div class="alert alert-info" role="alert">
+        <h5 class="alert-heading">📥 How to Import Match Data (TSV)</h5>
+        <p>Upload a <strong>TSV (Tab-Separated Values)</strong> file to import matches into this season. The file must include a <strong>header row</strong>.</p>
+
+        <p><strong>✅ Rules:</strong></p>
+        <ul>
+            <li>Column <em>order does not matter</em>, but headers <em>must exactly match</em> the supported field names.</li>
+            <li><strong>Required columns:</strong> <code>date</code>, <code>opponent</code></li>
+            <li><strong>Optional columns:</strong> <code>is_home</code>, <code>competition</code>, <code>round</code>, <code>attendance</code>, <code>team_score</code>, <code>opponent_score</code>, <code>time</code>, <code>goals</code></li>
+        </ul>
+
+        <p><strong>📄 Column Format Guide:</strong></p>
+        <div class="table-responsive">
+            <table class="table table-sm table-bordered align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Field</th>
+                        <th>Required?</th>
+                        <th>Description</th>
+                        <th>Example / Format</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>date</code></td>
+                        <td>Yes</td>
+                        <td>Date of fixture</td>
+                        <td><code>2024-08-10</code> (YYYY-MM-DD)</td>
+                    </tr>
+                    <tr>
+                        <td><code>opponent</code></td>
+                        <td>Yes</td>
+                        <td>Opposing team</td>
+                        <td><code>Leeds United</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>is_home</code></td>
+                        <td>No</td>
+                        <td>Venue indicator</td>
+                        <td><code>home</code>, <code>away</code>, <code>h</code>, <code>a</code>, etc.</td>
+                    </tr>
+                    <tr>
+                        <td><code>competition</code></td>
+                        <td>No</td>
+                        <td>Name of competition</td>
+                        <td><code>Championship</code>, <code>FA Cup</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>round</code></td>
+                        <td>No</td>
+                        <td>Stage of competition</td>
+                        <td><code>Quarter-Final</code>, <code>Group Stage</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>attendance</code></td>
+                        <td>No</td>
+                        <td>Match attendance</td>
+                        <td><code>30000</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>team_score</code></td>
+                        <td>No</td>
+                        <td>{{ season.team.name }}’s score</td>
+                        <td><code>2</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>opponent_score</code></td>
+                        <td>No</td>
+                        <td>Opponent’s score</td>
+                        <td><code>1</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>time</code></td>
+                        <td>No</td>
+                        <td>Kickoff time (if known)</td>
+                        <td><code>15:00</code> (24h format)</td>
+                    </tr>
+                    <tr>
+                        <td><code>goals</code></td>
+                        <td>No</td>
+                        <td>Goalscorers and minutes</td>
+                        <td><code>Smith 45+2, 76, Windass 83</code></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p><strong>⚠️ Note:</strong> Any unknown fields will be ignored. Required fields must be present or the import will fail.</p>
+    </div>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-primary">Upload</button>
+        <a href="{{ season.get_absolute_url }}" class="btn btn-secondary">Back</a>
+    </form>
+
+</div>
+{% endblock %}
