@@ -5,29 +5,39 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from team.models import Team, Season, Match
 import datetime
 
+
 class TestTSVImportView(TestCase):
     """Tests for the TSV match import functionality."""
 
     def setUp(self):
-        self.user = User.objects.create_user(username='importer', password='importpass')
-        self.client.login(username='importer', password='importpass')
-        self.team = Team.objects.create(name='Charlton Athletic', country='England', city='London', contributor=self.user)
+        self.user = User.objects.create_user(
+            username="importer", password="importpass"
+        )
+        self.client.login(username="importer", password="importpass")
+        self.team = Team.objects.create(
+            name="Charlton Athletic",
+            country="England",
+            city="London",
+            contributor=self.user,
+        )
         self.season = Season.objects.create(
             team=self.team,
             contributor=self.user,
             start_date=datetime.date(2024, 8, 1),
-            end_date=datetime.date(2025, 5, 30)
+            end_date=datetime.date(2025, 5, 30),
         )
-        self.url = reverse('import_matches', args=[self.team.slug, self.season.slug])
+        self.url = reverse(
+            "import_matches", args=[self.team.slug, self.season.slug]
+        )
 
     def post_tsv(self, content: str):
         """Helper to simulate TSV file upload."""
         file = SimpleUploadedFile(
-            'matches.tsv',
-            content.encode('utf-8'),
-            content_type='text/tab-separated-values'
+            "matches.tsv",
+            content.encode("utf-8"),
+            content_type="text/tab-separated-values",
         )
-        return self.client.post(self.url, {'tsv_file': file})
+        return self.client.post(self.url, {"tsv_file": file})
 
     def test_valid_tsv_import(self):
         """A valid TSV file should create a new match entry."""
@@ -36,7 +46,10 @@ class TestTSVImportView(TestCase):
         self.assertEqual(Match.objects.count(), 1)
         match = Match.objects.first()
         self.assertEqual(match.opponent, "Wigan Athletic")
-        self.assertRedirects(response, reverse('season_detail', args=[self.team.slug, self.season.slug]))
+        self.assertRedirects(
+            response,
+            reverse("season_detail", args=[self.team.slug, self.season.slug]),
+        )
 
     def test_missing_required_fields(self):
         """TSV upload missing required headers should fail."""
@@ -44,7 +57,9 @@ class TestTSVImportView(TestCase):
         response = self.post_tsv(tsv_data)
         self.assertEqual(Match.objects.count(), 0)
         messages = list(response.wsgi_request._messages)
-        self.assertTrue(any("Missing required fields" in str(m) for m in messages))
+        self.assertTrue(
+            any("Missing required fields" in str(m) for m in messages)
+        )
 
     def test_invalid_date_format(self):
         """TSV upload with invalid date should fail gracefully."""
@@ -84,13 +99,14 @@ class TestTSVImportView(TestCase):
         response = self.post_tsv(tsv_data)
         self.assertEqual(Match.objects.count(), 0)
         messages = list(response.wsgi_request._messages)
-        self.assertTrue(any("missing a header row" in str(m) for m in messages))
+        self.assertTrue(
+            any("missing a header row" in str(m) for m in messages)
+        )
 
     def test_malformed_time_is_handled_gracefully(self):
         """Malformed time input is caught and handled without crash."""
         tsv_data = (
-            "date\topponent\ttime\n"
-            "2024-08-10\tWigan Athletic\tinvalid-time"
+            "date\topponent\ttime\n" "2024-08-10\tWigan Athletic\tinvalid-time"
         )
         response = self.post_tsv(tsv_data)
         self.assertEqual(Match.objects.count(), 1)

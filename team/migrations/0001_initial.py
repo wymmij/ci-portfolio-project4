@@ -63,7 +63,10 @@ class Migration(migrations.Migration):
                         max_length=255,
                     ),
                 ),
-                ("slug", models.SlugField(blank=True, max_length=10, unique=True)),
+                (
+                    "slug",
+                    models.SlugField(blank=True, max_length=10, unique=True),
+                ),
                 (
                     "contributor",
                     models.ForeignKey(
@@ -74,7 +77,8 @@ class Migration(migrations.Migration):
                 (
                     "team",
                     models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE, to="team.team"
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="team.team",
                     ),
                 ),
             ],
@@ -107,8 +111,14 @@ class Migration(migrations.Migration):
                         max_length=50,
                     ),
                 ),
-                ("attendance", models.PositiveIntegerField(blank=True, null=True)),
-                ("team_score", models.PositiveSmallIntegerField(blank=True, null=True)),
+                (
+                    "attendance",
+                    models.PositiveIntegerField(blank=True, null=True),
+                ),
+                (
+                    "team_score",
+                    models.PositiveSmallIntegerField(blank=True, null=True),
+                ),
                 (
                     "opponent_score",
                     models.PositiveSmallIntegerField(blank=True, null=True),
@@ -116,7 +126,8 @@ class Migration(migrations.Migration):
                 (
                     "season",
                     models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE, to="team.season"
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="team.season",
                     ),
                 ),
             ],

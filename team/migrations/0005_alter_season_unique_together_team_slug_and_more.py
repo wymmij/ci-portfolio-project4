@@ -35,7 +35,8 @@ class Migration(migrations.Migration):
         migrations.AddConstraint(
             model_name="team",
             constraint=models.UniqueConstraint(
-                fields=("contributor", "slug"), name="unique_contributor_team_slug"
+                fields=("contributor", "slug"),
+                name="unique_contributor_team_slug",
             ),
         ),
     ]
