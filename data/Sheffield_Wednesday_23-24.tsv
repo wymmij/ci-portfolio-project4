@@ -1,4 +1,4 @@
-date	time	competition	round	opponent	is_home	team_score	opponent_score	goals		attendance
+date	time	competition	round	opponent	is_home	team_score	opponent_score	goals	attendance
 2023-08-04	20:00	Championship		Southampton	H	1	2	Gregory 54	28558
 2023-08-08	19:45	League Cup	1st Round	Stockport County	H	1	1	Bakinson 90+7	10886
 2023-08-12	15:00	Championship		Hull City	A	2	4	Delgado 36, Smith 90+3	20410

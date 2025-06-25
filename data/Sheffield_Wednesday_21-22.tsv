@@ -1,4 +1,4 @@
-date	time	competition	round	opponent	is_home	team_score	opponent_score	goals		attendance
+date	time	competition	round	opponent	is_home	team_score	opponent_score	goals	attendance
 2021-08-01	13:00	League Cup	1st Round	Huddersfield Town	H	0	0		12860
 2021-08-07	17:30	League One		Charlton Athletic	A	0	0		17639
 2021-08-14	15:00	League One		Doncaster Rovers	H	2	0	Bannan 72, Adeniran 75	24738
