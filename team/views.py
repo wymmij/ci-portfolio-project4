@@ -203,3 +203,15 @@ def import_matches_view(request, team_slug, season_slug):
         'form': MatchImportForm(),
     })
 
+
+@login_required
+def match_detail_view(request, team_slug, season_slug, match_id):
+    team = get_object_or_404(Team, slug=team_slug)
+    season = get_object_or_404(Season, slug=season_slug, team=team)
+    match = get_object_or_404(Match, id=match_id, season=season)
+
+    return render(request, 'team/match_detail.html', {
+        'team': team,
+        'season': season,
+        'match': match,
+    })

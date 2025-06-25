@@ -22,7 +22,7 @@
         </thead>
         <tbody>
             {% for match in matches %}
-            <tr>
+            <tr onclick="window.location='{% url 'match_detail' season.team.slug season.slug match.id %}'" style="cursor: pointer;">
                 <td>{{ match.outcome }}</td>
                 <td>{{ match.competition }}</td>
                 <td>{{ match.get_short_date }}</td>
@@ -30,8 +30,16 @@
                 <td>{{ match.get_scoreline }}</td>
                 <td>{{ match.get_away_team }}</td>
                 <td>{{ match.goals }}</td>
-                <td><a href="{% url 'edit_match' season.team.slug season.slug match.id %}" class="btn btn-sm btn-outline-secondary">Edit</a></td>
-                <td><a href="{% url 'delete_match' season.team.slug season.slug match.id %}" class="btn btn-sm btn-outline-danger">Delete</a></td>
+                <td>
+                    <a href="{% url 'edit_match' season.team.slug season.slug match.id %}" 
+                    class="btn btn-sm btn-outline-secondary" 
+                    onclick="event.stopPropagation();">Edit</a>
+                </td>
+                <td>
+                    <a href="{% url 'delete_match' season.team.slug season.slug match.id %}" 
+                    class="btn btn-sm btn-outline-danger"
+                    onclick="event.stopPropagation();">Delete</a>
+                </td>
             </tr>
             {% endfor %}
         </tbody>

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block content %}
+<div class="container mt-4">
+        <h2>{{ match.get_home_team }} {{ match.get_scoreline }} {{ match.get_away_team }}</h2>
+    <hr>
+
+    <table class="table table-bordered">
+        <tbody>
+            <tr><th>Competition</th><td>{{ match.competition }}</td></tr>
+            <tr><th>Round</th><td>{{ match.round|default:"—" }}</td></tr>
+            <tr><th>Date</th><td>{{ match.date }}</td></tr>
+            <tr><th>Kick-off Time</th><td>{{ match.time|default:"—" }}</td></tr>
+            <tr><th>Attendance</th><td>{{ match.attendance|default:""|intcomma|default:"—" }}</td></tr>
+            <tr><th>Goals</th><td>{{ match.goals|default:"—" }}</td></tr>
+        </tbody>
+    </table>
+
+    <a href="{% url 'season_detail' team.slug season.slug %}" class="btn btn-secondary">Back to Season</a>
+</div>
+{% endblock %}
