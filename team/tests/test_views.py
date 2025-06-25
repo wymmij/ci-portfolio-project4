@@ -301,3 +301,57 @@ class TestDeleteMatchView(TestCase):
         response = self.client.post(self.url)
         self.assertFalse(Match.objects.filter(id=self.match.id).exists())
         self.assertRedirects(response, reverse('season_detail', args=[self.team.slug, self.season.slug]))
+
+
+class TestMatchDetailView(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(username="testuser", password="password")
+        self.team = Team.objects.create(
+            name="Sheffield Wednesday", 
+            slug="sheffield-wednesday",
+            contributor=self.user,
+        )
+        self.season = Season.objects.create(
+            team=self.team,
+            start_date=date(2023, 8, 1),
+            end_date=date(2024, 5, 31),
+            contributor=self.user,
+        )
+        self.match = Match.objects.create(
+            season=self.season,
+            opponent="Leeds United",
+            date=date(2023, 9, 15),
+            is_home=True,
+            team_score=2,
+            opponent_score=1,
+            attendance=30200,
+        )
+        self.detail_url = reverse("match_detail", args=[self.team.slug, self.season.slug, self.match.id])
+        self.client.login(username="testuser", password="password")
+
+    def test_match_detail_view_status_code(self):
+        """Returns 200 OK for valid match detail URL."""
+        response = self.client.get(self.detail_url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_match_detail_template_used(self):
+        """Renders the correct match detail template."""
+        response = self.client.get(self.detail_url)
+        self.assertTemplateUsed(response, "team/match_detail.html")
+
+    def test_match_detail_content(self):
+        """Displays opponent name and formatted scoreline."""
+        response = self.client.get(self.detail_url)
+        self.assertContains(response, "Leeds United")
+        self.assertContains(response, "2–1")
+
+    def test_match_detail_404_for_invalid_id(self):
+        """Returns 404 for non-existent match ID."""
+        bad_url = reverse("match_detail", args=[self.team.slug, self.season.slug, 999])
+        response = self.client.get(bad_url)
+        self.assertEqual(response.status_code, 404)
+
+    def test_attendance_formatting(self):
+        """Displays attendance with thousands separator."""
+        response = self.client.get(self.detail_url)
+        self.assertContains(response, "30,200")
