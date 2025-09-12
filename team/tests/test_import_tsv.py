@@ -109,6 +109,7 @@ class TestTSVImportView(TestCase):
             "date\topponent\ttime\n" "2024-08-10\tWigan Athletic\tinvalid-time"
         )
         response = self.post_tsv(tsv_data)
+        self.assertEqual(response.status_code, 200)
         self.assertEqual(Match.objects.count(), 1)
         match = Match.objects.first()
         self.assertIsNone(match.time)

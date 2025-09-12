@@ -40,7 +40,8 @@ def choose_team_view(request):
 @login_required
 def create_season_view(request, team_slug):
     """
-    Allows a contributor to create a new :model:`team.Season` for their selected :model:`team.Team`.
+    Allows a contributor to create a new :model:`team.Season` for their
+    selected :model:`team.Team`.
 
     **Context**
 
@@ -98,7 +99,7 @@ def season_detail_view(request, team_slug, season_slug):
         team__slug=team_slug,
         contributor=request.user,
     )
-    matches = season.match_set.order_by("date")
+    matches = Match.objects.filter(season=season).order_by("date")
     return render(
         request,
         "team/season_detail.html",
@@ -112,7 +113,8 @@ def season_detail_view(request, team_slug, season_slug):
 @login_required
 def create_match_view(request, team_slug, season_slug):
     """
-    Allows a contributor to create a new :model:`team.Match` within a given :model:`team.Season`.
+    Allows a contributor to create a new :model:`team.Match` within a
+    given :model:`team.Season`.
 
     **Context**
 
@@ -343,7 +345,10 @@ def import_matches_view(request, team_slug, season_slug):
                     is_home = False
                     messages.warning(
                         request,
-                        f"Row {reader.line_num}: Unrecognized value '{home_field}' for is_home. Defaulting to away.",
+                        (
+                            f"Row {reader.line_num}: Unrecognized value '{home_field}' "
+                            f"for is_home. Defaulting to away."
+                        ),
                     )
 
                 Match.objects.create(

@@ -87,7 +87,10 @@ class TestMatchForm(TestCase):
         self.assertTrue(form.is_valid())
 
     def test_competition_choices_are_set(self):
-        """Competition field choices are populated from the related season’s competitions."""
+        """
+        Competition field choices are populated from the related season’s
+        competitions.
+        """
         form = MatchForm(season=self.season)
         expected_choices = [
             ("Championship", "Championship"),

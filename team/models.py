@@ -8,13 +8,15 @@ from django.urls import reverse
 # Create your models here.
 class Team(models.Model):
     """
-    Represents a football team associated with a specific :model:`auth.User` contributor.
+    Represents a football team associated with a specific :model:`auth.User`
+    contributor.
 
     **Fields**
     - ``name``: Full name of the team (must be unique)
     - ``short_name``: Optional abbreviated name for compact display
     - ``city`` and ``country``: Geographic location of the team
-    - ``contributor``: ForeignKey to :model:`auth.User`, identifying the user who created the team
+    - ``contributor``: ForeignKey to :model:`auth.User`, identifying the user
+        who created the team
     - ``slug``: URL-safe identifier auto-generated from the team name
     - ``is_public``: Visibility flag (future use)
 
@@ -23,7 +25,8 @@ class Team(models.Model):
 
     **Methods**
     - ``get_display_name``: Returns the short name if available, otherwise the full name
-    - ``get_create_season_url``: Constructs the URL to initiate a new season for this team
+    - ``get_create_season_url``: Constructs the URL to initiate a new season for this
+        team
     """
 
     name = models.CharField(max_length=100, unique=True)
@@ -67,9 +70,11 @@ class Season(models.Model):
     Encapsulates a single football season for a specific :model:`team.Team`.
 
     **Fields**
-    - ``team``: ForeignKey to :model:`team.Team`, indicating which team the season belongs to
+    - ``team``: ForeignKey to :model:`team.Team`, indicating which team the season
+        belongs to
     - ``start_date`` and ``end_date``: Temporal bounds of the season
-    - ``contributor``: ForeignKey to :model:`auth.User`, denoting the creator of this season
+    - ``contributor``: ForeignKey to :model:`auth.User`, denoting the creator of
+        this season
     - ``competition_list``: Comma-separated competitions (parsed as property)
     - ``slug``: URL slug, derived from season year range
 
@@ -91,7 +96,9 @@ class Season(models.Model):
     competition_list = models.CharField(
         max_length=255,
         blank=True,
-        help_text="Comma-separated list of competitions the team has entered for this season.",
+        help_text=(
+            "Comma-separated list of competitions the team has entered this season."
+        ),
     )
     slug = models.SlugField(max_length=10, blank=True)
 
@@ -160,9 +167,11 @@ class Match(models.Model):
     **Methods**
     - ``__str__``: Returns a concise textual summary of the match
     - ``outcome``: Returns match result code ('W', 'D', or 'L') based on score
-    - ``get_scoreline``: Returns the score as a string, formatted according to home/away status
+    - ``get_scoreline``: Returns the score as a string, formatted according to
+        home/away status
     - ``get_short_date``: Returns a compact date string (dd-mm-yy)
-    - ``get_home_team`` / ``get_away_team``: Returns the name of the teams with HTML formatting, highlighting the contributor’s team
+    - ``get_home_team`` / ``get_away_team``: Returns the name of the teams with
+        HTML formatting, highlighting the contributor’s team
     """
 
     season = models.ForeignKey(Season, on_delete=models.CASCADE)
@@ -186,7 +195,10 @@ class Match(models.Model):
     def __str__(self):
         """Return human-readable match summary."""
         location = "vs" if self.is_home else "@"
-        return f"{self.season.team.short_name or self.season.team.name} {location} {self.opponent} ({self.date})"
+        return (
+            f"{self.season.team.short_name or self.season.team.name} "
+            f"{location} {self.opponent} ({self.date})"
+        )
 
     @property
     def outcome(self):
