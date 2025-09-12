@@ -205,8 +205,13 @@ Throughout the development of the project, extensive manual testing was performe
 
 ### HTML & Code Validation
 
-- ✅ Ran W3C HTML validator across key templates. All pages passed with only minor, non-critical warnings (e.g., self-closing tags).
-- ✅ Python code was linted using a PEP8 checker. All reported issues were related to long strings in docstrings or template output — no functional issues were found.
+- ✅ **HTML**: All key templates were validated using the W3C HTML Validator. Pages passed with only minor, non-critical warnings (e.g., self-closing tags).
+- ✅ **Python**: Code was linted using **Flake8** with a project-level configuration (`.flake8`).
+
+  - Issues originally flagged (e.g., long lines, unused imports in placeholder files) have been resolved.
+  - Auto-formatting (via Black) and manual adjustments (string splitting, removal of unused imports) brought all Python files into compliance.
+  - Virtual environment and auto-generated Django migration files were excluded from checks.
+- ✅ All project code now passes linting without errors.
 
 ### Admin Dashboard Testing
 
