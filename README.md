@@ -33,6 +33,18 @@ SeasonWatch allows users to record and explore season-by-season data for their f
   - [📈 Agile Process](#-agile-process)
   - [🛠️ Technologies Used](#️-technologies-used)
   - [🚀 Deployment](#-deployment)
+    - [Local Development Setup](#local-development-setup)
+      - [Prerequisites](#prerequisites)
+      - [Database Requirements](#database-requirements)
+      - [Get the source code](#get-the-source-code)
+      - [Create and Activate Virtual Environment](#create-and-activate-virtual-environment)
+      - [Install Dependencies](#install-dependencies)
+      - [Configure Local Environment](#configure-local-environment)
+      - [Run Migrations and Create Superuser](#run-migrations-and-create-superuser)
+      - [Start the Development Server](#start-the-development-server)
+    - [Production Deployment (Heroku)](#production-deployment-heroku)
+      - [Method A - Heroku Web UI](#method-a---heroku-web-ui)
+      - [Method B — Heroku CLI](#method-b--heroku-cli)
   - [📝 Credits](#-credits)
 
 ---
@@ -277,10 +289,202 @@ The project followed Agile methodology:
 
 ## 🚀 Deployment
 
-Deployed to Heroku with settings managed via `env.py` and Heroku Config Vars.
+There are multiple valid ways to deploy a Django project, depending on the tools and hosting services chosen (e.g. different cloud platforms, database backends, or deployment methods).
+For this project, I describe the exact process used:
 
-- Static files served via WhiteNoise
-- Local development uses SQLite; production uses PostgreSQL
+- Local development with Python 3
+- Deployment to Heroku using the **GitHub integration** method
+- A Postgres database provided via a cloud provider
+
+---
+
+### Local Development Setup
+
+#### Prerequisites
+
+- Python (tested with **3.13.7**; Django 4.x officially supports Python ≥3.8)
+- Git
+
+> [!NOTE]
+> You may use any code editor or IDE for development. The steps below are editor-agnostic and assume only that you have Git and Python installed locally.
+
+---
+
+#### Database Requirements
+
+This project requires a **Postgres database**, configured via the `DATABASE_URL` environment variable.
+
+- The connection string must follow the standard format:
+
+  ```conf
+  postgres://USER:PASSWORD@HOST:PORT/DBNAME
+  ```
+
+- In production (e.g. on Heroku), this variable is typically set automatically when you provision a Postgres add-on or other managed database service.
+- For local development, you may either:
+
+  - Run a local Postgres server, or
+  - Point `DATABASE_URL` to any accessible Postgres instance (e.g. on a cloud provider).
+
+Postgres is required for deployment. SQLite may work for experimentation but is not supported here.
+
+---
+
+#### Get the source code
+
+To deploy this project using **Heroku GitHub integration**, you must have a GitHub account and a repository under your own account (Heroku can only connect to repositories you control).
+
+1. **Fork this repository** on GitHub. This creates a copy of the project under your own GitHub account. Forking is required because Heroku GitHub integration can only connect to repositories you own.
+2. **Clone your fork locally** to your development machine:
+
+   ```bash
+   git clone https://github.com/<your-username>/<repo-name>.git
+   cd <repo-name>
+   ```
+
+This ensures you both:
+
+- have a local copy for development and testing, and
+- have a GitHub-hosted repository you own, which Heroku can connect to for deployment.
+
+---
+
+#### Create and Activate Virtual Environment
+
+```bash
+python -m venv .venv
+# Linux/macOS
+source .venv/bin/activate
+# Windows PowerShell
+# .venv\Scripts\Activate.ps1
+```
+
+(Other tools such as Pipenv or Poetry can be used, but `venv` is sufficient here.)
+
+---
+
+#### Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+#### Configure Local Environment
+
+Create a file called **`env.py`** at the project root with the following content:
+
+```python
+import os
+
+os.environ.setdefault("DATABASE_URL", "postgres://USER:PASSWORD@HOST:PORT/DBNAME")
+os.environ.setdefault("SECRET_KEY", "your-secret-key")
+os.environ.setdefault("DEBUG", "True")
+```
+
+- **SECRET\_KEY:** a random string used for cryptographic signing in Django.
+  To generate one quickly:
+
+  ```bash
+  python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'
+  ```
+
+- **DEBUG:** should be `"True"` only in local development. In production, always set `"False"`.
+
+Ensure your `settings.py` reads `DEBUG` as:
+
+```python
+DEBUG = os.environ.get("DEBUG", "False") == "True"
+```
+
+If `DEBUG` is not set, it defaults to `False`, which is correct for production (e.g. on Heroku).
+
+---
+
+#### Run Migrations and Create Superuser
+
+```bash
+python manage.py migrate
+python manage.py createsuperuser
+```
+
+> [!NOTE]
+> All required migration files are included in the repository; you only need to apply them with migrate.
+
+---
+
+#### Start the Development Server
+
+```bash
+python manage.py runserver
+```
+
+Open [http://127.0.0.1:8000/](http://127.0.0.1:8000/) and log into `/admin/` with your superuser.
+
+---
+
+### Production Deployment (Heroku)
+
+This application is hosted on [Heroku](https://www.heroku.com), a cloud-based platform-as-a-service. Deployment can be done via the **Heroku Web UI** or the **Heroku CLI**. Both of the following methods assume you already have a Heroku account. Each results in the app being deployed to Heroku and connected to a Postgres database specified by `DATABASE_URL`.
+
+---
+
+#### Method A - Heroku Web UI
+
+1. Log in to your Heroku account.
+2. Click **New** → **Create new app**.
+3. Choose a unique app name and region, then **Create app**.
+4. Go to the **Settings** tab → **Reveal Config Vars**.
+
+   - Add `SECRET_KEY` with a new random value.
+   - Add `DATABASE_URL` with the connection string to your Postgres database (if using Heroku Postgres, this is auto-added).
+5. Go to the **Deploy** tab.
+
+   - In **Deployment method**, select **GitHub**.
+   - Under **Connect to GitHub**, link your repository.
+   - In **Manual Deploy**, choose the branch (e.g. `main`) and click **Deploy Branch**.
+6. Once deployed, if this app is pointing to a new or empty database, initialize it via **More → Run Console**:
+
+   ```bash
+   python manage.py migrate
+   python manage.py createsuperuser
+   ```
+
+7. Click **Open App**.
+
+---
+
+#### Method B — Heroku CLI
+
+```bash
+# Log in
+heroku login
+
+# Create an app (choose a unique name)
+heroku create <your-heroku-app> --region eu
+
+# Set config vars
+heroku config:set SECRET_KEY=<random> DATABASE_URL=<your-database-url> -a <your-heroku-app>
+
+# Connect the GitHub repo to this app (so pushes go to Heroku)
+heroku git:remote -a <your-heroku-app>
+
+# Deploy (push code to Heroku)
+git push heroku main
+
+# (Optional) Run migrations, only if this app is pointing to a new or empty DB
+# heroku run python manage.py migrate -a <your-heroku-app>
+# heroku run python manage.py createsuperuser -a <your-heroku-app>
+
+# Open the app in the browser
+heroku open -a <your-heroku-app>
+```
+
+> [!NOTE]
+>
+> - If your development and production environments share the same Postgres instance, the schema will already exist and no migrations are needed at deploy time.
+> - If you point the Heroku app at a fresh Postgres database, you must run `migrate` and create a superuser there.
 
 ---
 
